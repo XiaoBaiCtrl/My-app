@@ -1,5 +1,5 @@
 package com.example.myapp
-//111
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -27,8 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.ViewCompat
 import com.example.myapp.ui.theme.MyAppTheme
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +36,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyAppTheme {
+                val systemUiController = rememberSystemUiController()
+                systemUiController.setSystemBarsColor(
+                    color = Color(0xFFD0E8D0),
+                    darkIcons = true
+                )
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     BusinessCard(modifier = Modifier.padding(innerPadding))
                 }
@@ -47,10 +52,9 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BusinessCard(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
-            .fillMaxSize(1f)
+        modifier = modifier
+            .fillMaxSize()
             .background(Color(0xFFD0E8D0)), // 背景颜色
-//            .padding(16.dp),
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -94,7 +98,7 @@ fun BusinessCard(modifier: Modifier = Modifier) {
 fun ContactInfo(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.Start, // 左对齐
-        modifier = Modifier.padding(bottom = 50.dp),
+        modifier = modifier.padding(bottom = 50.dp),
         verticalArrangement = Arrangement.Bottom,
     ) {
         ContactInfoItem(icon = Icons.Default.Phone, info = "+11 (123) 444 555 666")
@@ -121,10 +125,9 @@ fun ContactInfoItem(icon: ImageVector, info: String) {
             fontSize = 16.sp,
             color = Color.Black,
             modifier = Modifier.alignByBaseline(),
-            fontWeight=FontWeight.Bold
+            fontWeight = FontWeight.Bold
         )
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -134,4 +137,3 @@ fun GreetingPreview() {
         BusinessCard()
     }
 }
-
